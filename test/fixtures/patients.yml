@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: 1
+  age: 1
+  weight: 1
+  fever: false
+  tired: false
+  headache: false
+  cough: false
+  short_breath: false
+  diarrhea: false
+  hyposmia: false
+  hypogeusia: false
+  phone: one
+
+two:
+  name: 1
+  age: 1
+  weight: 1
+  fever: false
+  tired: false
+  headache: false
+  cough: false
+  short_breath: false
+  diarrhea: false
+  hyposmia: false
+  hypogeusia: false
+  phone: two
