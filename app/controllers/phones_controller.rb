@@ -39,13 +39,14 @@ class PhonesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_phone
-      @phone = Phone.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def phone_params
-      params.require(:phone).permit(:number, :is_verified)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_phone
+    @phone = Phone.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def phone_params
+    params.require(:phone).permit(:number, :is_verified)
+  end
 end

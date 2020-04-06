@@ -39,13 +39,14 @@ class VolunteersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_volunteer
-      @volunteer = Volunteer.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def volunteer_params
-      params.require(:volunteer).permit(:name, :identifier, :identifier_type, :phone_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_volunteer
+    @volunteer = Volunteer.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def volunteer_params
+    params.require(:volunteer).permit(:name, :identifier, :identifier_type, :phone_id)
+  end
 end
