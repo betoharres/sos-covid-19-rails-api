@@ -1,8 +1,8 @@
 class CreatePatients < ActiveRecord::Migration[6.0]
   def change
     create_table :patients do |t|
-      t.integer :lat, null: false
-      t.integer :long, null: false
+      t.float :lat, null: false
+      t.float :long, null: false
       t.integer :name
       t.integer :age
       t.integer :weight
