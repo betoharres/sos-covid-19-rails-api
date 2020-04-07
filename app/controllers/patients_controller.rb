@@ -3,7 +3,10 @@ class PatientsController < ApplicationController
 
   # GET /patients
   def index
-    @patients = Patient.all
+    @patients = Patient.near(
+      [patient_params[:latitude], patient_params[:longitude]],
+      patient_params[:map_zoom] || 10
+    )
 
     render json: @patients
   end
@@ -52,7 +55,7 @@ class PatientsController < ApplicationController
       :phone,        :latitude,          :longitude,         :name,
       :age,          :weight,            :fever,             :tired,
       :headache,     :cough,             :short_breath,      :diarrhea,
-      :hyposmia,     :hypogeusia
+      :hyposmia,     :hypogeusia,        :map_zoom
     )
   end
 end

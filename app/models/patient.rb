@@ -1,4 +1,5 @@
 class Patient < ApplicationRecord
+  scope :with_valid_phones, -> { eager_load(:phone).merge(Phone.validated) }
   reverse_geocoded_by :latitude, :longitude
   include AASM
 
