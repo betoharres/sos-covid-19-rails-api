@@ -1,4 +1,5 @@
 class Patient < ApplicationRecord
+  reverse_geocoded_by :latitude, :longitude
   include AASM
 
   aasm do
