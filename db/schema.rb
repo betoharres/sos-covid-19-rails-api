@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(version: 2020_04_04_230432) do
   enable_extension "plpgsql"
 
   create_table "patients", force: :cascade do |t|
-    t.float "lat", null: false
-    t.float "long", null: false
+    t.float "latitude", null: false
+    t.float "longitude", null: false
     t.integer "name"
     t.integer "age"
     t.integer "weight"
@@ -37,8 +37,9 @@ ActiveRecord::Schema.define(version: 2020_04_04_230432) do
   end
 
   create_table "phones", force: :cascade do |t|
-    t.string "number"
-    t.boolean "is_verified"
+    t.string "number", null: false
+    t.string "verification_code"
+    t.boolean "is_verified", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["number"], name: "index_phones_on_number", unique: true

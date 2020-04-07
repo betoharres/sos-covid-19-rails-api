@@ -1,5 +1,5 @@
 class PatientsController < ApplicationController
-  before_action :set_patient, only: [:show, :update, :destroy]
+  before_action :set_patient, only: %i[show update destroy]
 
   # GET /patients
   def index
@@ -16,6 +16,7 @@ class PatientsController < ApplicationController
   # POST /patients
   def create
     @patient = Patient.new(patient_params)
+    @patient.phone = Phone.find_or_create_by(phone: patient_params[:phone])
 
     if @patient.save
       render json: @patient, status: :created, location: @patient
@@ -47,6 +48,11 @@ class PatientsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def patient_params
-    params.require(:patient).permit(:name, :age, :weight, :fever, :tired, :headache, :cough, :short_breath, :diarrhea, :hyposmia, :hypogeusia, :phone_id)
+    params.require(:patient).permit(
+      :phone,        :latitude,          :longitude,         :name,
+      :age,          :weight,            :fever,             :tired,
+      :headache,     :cough,             :short_breath,      :diarrhea,
+      :hyposmia,     :hypogeusia
+    )
   end
 end

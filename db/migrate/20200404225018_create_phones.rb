@@ -1,8 +1,9 @@
 class CreatePhones < ActiveRecord::Migration[6.0]
   def change
     create_table :phones do |t|
-      t.string :number
-      t.boolean :is_verified
+      t.string :number, null: false
+      t.string :verification_code
+      t.boolean :is_verified, default: false
 
       t.timestamps
     end

@@ -1,5 +1,5 @@
 class VolunteersController < ApplicationController
-  before_action :set_volunteer, only: [:show, :update, :destroy]
+  before_action :set_volunteer, only: %i[show update destroy]
 
   # GET /volunteers
   def index
@@ -47,6 +47,8 @@ class VolunteersController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def volunteer_params
-    params.require(:volunteer).permit(:name, :identifier, :identifier_type, :phone_id)
+    params.require(:volunteer).permit(
+      :name, :identifier, :identifier_type, :phone
+    )
   end
 end

@@ -1,5 +1,14 @@
 class PhonesController < ApplicationController
-  before_action :set_phone, only: [:show, :update, :destroy]
+  before_action :set_phone, only: %i[show update destroy]
+
+  # POST /phones/validate
+  def validate
+    verification_code = phone_params[:verification_code]
+    @phone = Phone.find_by(number: phone_params[:number])
+    is_valid = @phone.verification_code == verification_code
+    @phone.is_verified = true
+    render json: { valid: is_valid }
+  end
 
   # GET /phones
   def index
@@ -47,6 +56,6 @@ class PhonesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def phone_params
-    params.require(:phone).permit(:number, :is_verified)
+    params.require(:phone).permit(:number, :code)
   end
 end
