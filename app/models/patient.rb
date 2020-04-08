@@ -1,4 +1,5 @@
 class Patient < ApplicationRecord
+  has_paper_trail
   scope :with_valid_phones, -> { eager_load(:phone).merge(Phone.validated) }
   reverse_geocoded_by :latitude, :longitude
   include AASM
@@ -6,6 +7,7 @@ class Patient < ApplicationRecord
   aasm do
     state :waiting, initial: true
     state :testing
+    state :visiting
     state :infected
     state :discarded
 
@@ -13,12 +15,16 @@ class Patient < ApplicationRecord
       transitions from: :waiting, to: %i[testing discard]
     end
 
-    event :discard do
-      transitions from: %i[waiting testing], to: :discard
+    event :visit do
+      transitions from: :waiting, to: :visiting
     end
 
-    event :test_positive do
-      transitions from: :testing, to: :infected
+    event :discard do
+      transitions from: %i[waiting testing visiting], to: :discard
+    end
+
+    event :infect do
+      transitions from: %i[waiting testing visiting], to: :infected
     end
   end
 
