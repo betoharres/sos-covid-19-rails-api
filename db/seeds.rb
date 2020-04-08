@@ -5,3 +5,5 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+@phone = Phone.create(number: '51993455418')
+Patient.create(latitude: '51993455418', longitude: '51993455418')
