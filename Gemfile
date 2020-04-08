@@ -43,6 +43,7 @@ end
 gem 'aasm'
 gem 'geocoder'
 gem 'paper_trail'
+gem 'rack-attack'
 gem 'twilio-ruby', '~> 5.33.0'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
