@@ -1,5 +1,5 @@
 class PatientStateController < ApplicationController
-  before_action :set_patient
+  before_action :set_patient, :authenticate
 
   # POST /call/:id
   def call
@@ -30,6 +30,16 @@ class PatientStateController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_patient
     @patient = Patient.find(params[:id])
+  end
+
+  def authenticate
+    authenticate_or_request_with_http_token do |token|
+      @volunteer = Volunteer.find_by(token: token)
+    end
+  end
+
+  def current_user
+    @current_user ||= authenticate
   end
 
   # Only allow a trusted parameter "white list" through.

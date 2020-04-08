@@ -1,4 +1,5 @@
 class PatientsController < ApplicationController
+  # before_action :authenticate, except: :create
   before_action :set_patient, only: %i[show update destroy]
 
   # GET /patients
@@ -47,6 +48,16 @@ class PatientsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_patient
     @patient = Patient.find(params[:id])
+  end
+
+  def authenticate
+    authenticate_or_request_with_http_token do |token|
+      Volunteer.find_by(token: token)
+    end
+  end
+
+  def current_user
+    @current_user ||= authenticate
   end
 
   # Only allow a trusted parameter "white list" through.

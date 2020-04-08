@@ -56,6 +56,6 @@ class PhonesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def phone_params
-    params.require(:phone).permit(:number, :code)
+    params.require(:phone).permit(:number, :verification_code)
   end
 end

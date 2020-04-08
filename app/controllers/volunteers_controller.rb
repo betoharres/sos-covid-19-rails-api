@@ -1,4 +1,5 @@
 class VolunteersController < ApplicationController
+  # before_action :authenticate
   before_action :set_volunteer, only: %i[show update destroy]
 
   # GET /volunteers
@@ -50,5 +51,15 @@ class VolunteersController < ApplicationController
     params.require(:volunteer).permit(
       :name, :identifier, :identifier_type, :phone
     )
+  end
+
+  def authenticate
+    authenticate_or_request_with_http_token do |token|
+      Volunteer.find_by(token: token)
+    end
+  end
+
+  def current_user
+    @current_user ||= authenticate
   end
 end
