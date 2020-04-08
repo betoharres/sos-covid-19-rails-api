@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2020_04_08_195336) do
 
   create_table "volunteers", force: :cascade do |t|
     t.string "name"
+    t.string "token"
     t.string "identifier"
     t.string "identifier_type"
     t.bigint "phone_id", null: false
