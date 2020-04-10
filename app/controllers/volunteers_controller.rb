@@ -17,6 +17,7 @@ class VolunteersController < ApplicationController
   # POST /volunteers
   def create
     @volunteer = Volunteer.new(volunteer_params)
+    @volunteer.phone = Phone.find_or_create_by(number: volunteer_params[:phone])
 
     if @volunteer.save
       render json: @volunteer, status: :created, location: @volunteer

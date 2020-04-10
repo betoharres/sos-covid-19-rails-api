@@ -4,7 +4,7 @@ class Phone < ApplicationRecord
   has_many :patients, dependent: :delete_all
   has_one :volunteer, dependent: :destroy
 
-  before_validation :send_sms_code
+  before_create :send_sms_code
 
   private
 

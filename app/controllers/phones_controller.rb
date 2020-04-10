@@ -5,9 +5,13 @@ class PhonesController < ApplicationController
   def validate
     verification_code = phone_params[:verification_code]
     @phone = Phone.find_by(number: phone_params[:number])
-    is_valid = @phone.verification_code == verification_code
-    @phone.is_verified = true
-    render json: { valid: is_valid }
+    if @phone
+      @phone.update!(is_verified: true)
+      is_valid = @phone.verification_code == verification_code
+      render json: { valid: is_valid }
+    else
+      render json: { error: 'Phone not found' }
+    end
   end
 
   # GET /phones
