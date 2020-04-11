@@ -8,7 +8,7 @@ class PatientsController < ApplicationController
       [params[:latitude], params[:longitude]], params[:map_zoom] || 10
     )
 
-    render json: @patients
+    render json: @patients, include: :phone
   end
 
   # GET /patients/1
