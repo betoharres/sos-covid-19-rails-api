@@ -28,5 +28,5 @@ class Patient < ApplicationRecord
     end
   end
 
-  belongs_to :phone
+  belongs_to :phone, inverse_of: :patients
 end
