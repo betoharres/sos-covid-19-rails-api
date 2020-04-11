@@ -4,9 +4,8 @@ class PatientsController < ApplicationController
 
   # GET /patients
   def index
-    @patients = Patient.near(
-      [patient_params[:latitude], patient_params[:longitude]],
-      patient_params[:map_zoom] || 10
+    @patients = Patient.with_valid_phones.near(
+      [params[:latitude], params[:longitude]], params[:map_zoom] || 10
     )
 
     render json: @patients
