@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   post 'patient_state/history/:id', to: 'patient_state#history'
 
   resources :patients
-  resources :volunteers
+  resources :volunteers, except: :index
   # resources :phones
 
   post '/phones/validate', to: 'phones#validate'
