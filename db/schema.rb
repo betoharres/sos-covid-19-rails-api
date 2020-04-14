@@ -56,13 +56,15 @@ ActiveRecord::Schema.define(version: 2020_04_08_195336) do
   end
 
   create_table "volunteers", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
+    t.string "email", null: false
     t.string "token"
     t.string "identifier"
     t.string "identifier_type"
     t.bigint "phone_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_volunteers_on_email", unique: true
     t.index ["phone_id"], name: "index_volunteers_on_phone_id"
   end
 
