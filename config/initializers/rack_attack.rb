@@ -1,5 +1,5 @@
 module Rack
   class Attack
-    throttle('req/ip', limit: 1, period: 3, &:ip)
+    throttle('req/ip', limit: 4, period: 20, &:ip)
   end
 end
