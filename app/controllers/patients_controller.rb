@@ -4,11 +4,11 @@ class PatientsController < ApplicationController
 
   # GET /patients
   def index
-    @patients = Patient.with_valid_phones.near(
-      [params[:latitude], params[:longitude]], params[:map_zoom] || 10
-    )
+    coordinates = [params[:latitude], params[:longitude]]
+    range = params[:map_zoom] || 20
+    @patients = Patient.with_valid_phones.near(coordinates, range)
 
-    render json: @patients, include: :phone
+    render json: @patients, methods: :phone_number
   end
 
   # GET /patients/1
