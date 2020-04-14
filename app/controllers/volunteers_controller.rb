@@ -47,13 +47,6 @@ class VolunteersController < ApplicationController
     @volunteer = Volunteer.find(params[:id])
   end
 
-  # Only allow a trusted parameter "white list" through.
-  def volunteer_params
-    params.require(:volunteer).permit(
-      :name, :identifier, :identifier_type, :phone
-    )
-  end
-
   def authenticate
     authenticate_or_request_with_http_token do |token|
       Volunteer.find_by(token: token)
@@ -62,5 +55,12 @@ class VolunteersController < ApplicationController
 
   def current_user
     @current_user ||= authenticate
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def volunteer_params
+    params.require(:volunteer).permit(
+      :name, :identifier, :identifier_type, :phone
+    )
   end
 end
