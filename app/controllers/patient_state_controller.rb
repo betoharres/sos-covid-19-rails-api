@@ -1,4 +1,5 @@
 class PatientStateController < ApplicationController
+  before_action :set_paper_trail_whodunnit, except: :history
   before_action :set_patient, :authenticate
 
   # POST /call/:id
