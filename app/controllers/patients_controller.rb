@@ -26,7 +26,10 @@ class PatientsController < ApplicationController
     @patient.phone = Phone.find_or_create_by(number: patient_params[:phone])
 
     if @patient.save
-      render json: @patient, status: :created, location: @patient
+      render json: @patient,
+             methods: %i[phone_number is_new_phone_record],
+             status: :created,
+             location: @patient
     else
       render json: @patient.errors, status: :unprocessable_entity
     end

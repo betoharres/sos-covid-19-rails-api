@@ -16,11 +16,14 @@ class VolunteersController < ApplicationController
 
   # POST /volunteers
   def create
-    @volunteer = Volunteer.new(volunteer_params)
+    @volunteer = Volunteer.new(volunteer_params.except(:phone))
     @volunteer.phone = Phone.find_or_create_by(number: volunteer_params[:phone])
 
     if @volunteer.save
-      render json: @volunteer, status: :created, location: @volunteer
+      render json: @volunteer,
+             methods: [:phone_number, :is_new_phone_record],
+             status: :created,
+             location: @volunteer
     else
       render json: @volunteer.errors, status: :unprocessable_entity
     end

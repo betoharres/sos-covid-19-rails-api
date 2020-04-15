@@ -1,4 +1,5 @@
 class Phone < ApplicationRecord
+  attr_accessor :is_new_phone_record
   scope :validated, -> { where(is_verified: true) }
 
   has_many :patients, dependent: :delete_all, inverse_of: :phone
@@ -12,6 +13,7 @@ class Phone < ApplicationRecord
   private
 
   def send_sms_code
+    self.is_new_phone_record = true
     generated_code = rand(0o000..9999).to_s.rjust(4, '0')
     self.verification_code = generated_code
     TwilioClient.new.send_text(
