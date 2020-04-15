@@ -21,7 +21,7 @@ class VolunteersController < ApplicationController
 
     if @volunteer.save
       render json: @volunteer,
-             methods: [:phone_number, :is_new_phone_record],
+             methods: [:phone_number, :is_sms_sent],
              status: :created,
              location: @volunteer
     else
