@@ -1,7 +1,6 @@
 class Patient < ApplicationRecord
   belongs_to :phone, inverse_of: :patients
   delegate :number, to: :phone, prefix: true
-  delegate :is_verified, to: :phone, prefix: true
   delegate :is_sms_sent, to: :phone
   reverse_geocoded_by :latitude, :longitude
   has_paper_trail

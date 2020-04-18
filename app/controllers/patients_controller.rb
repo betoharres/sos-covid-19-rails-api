@@ -27,7 +27,7 @@ class PatientsController < ApplicationController
 
     if @patient.save
       render json: @patient,
-             methods: %i[phone_number is_sms_sent phone_is_verified],
+             methods: %i[phone_number is_new_phone_record],
              status: :created,
              location: @patient
     else
