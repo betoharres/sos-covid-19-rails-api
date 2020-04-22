@@ -3,13 +3,12 @@ class PhonesController < ApplicationController
 
   # POST /phones/validate
   def validate
-    verification_code = phone_params[:verification_code]
     @phone = Phone.find_by(number: phone_params[:number])
     if @phone
-      is_phone_valid = @phone.verification_code == verification_code
+      is_phone_valid = @phone.sms_code == phone_params[:sms_code]
       if is_phone_valid
         @phone.update!(is_verified: true)
-        render json: { valid: is_phone_valid }
+        render json: { success: is_phone_valid }
       else
         render json: { error: 'Invalid code' }
       end
@@ -32,7 +31,7 @@ class PhonesController < ApplicationController
   #
   # # POST /phones
   # def create
-  #   @phone = Phone.new(phone_params)
+  #   @phone = Phone.find_or_create_by(number: phone_params[:number])
   #
   #   if @phone.save
   #     render json: @phone, status: :created, location: @phone
@@ -64,6 +63,6 @@ class PhonesController < ApplicationController
   #
   # Only allow a trusted parameter "white list" through.
   def phone_params
-    params.require(:phone).permit(:number, :verification_code)
+    params.require(:phone).permit(:number, :sms_code)
   end
 end
