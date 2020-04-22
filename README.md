@@ -87,6 +87,17 @@ twilio:
   auth_token:   
   phone_number: +00000000
 ``````
+Sidekiq/Redis server:
+A API ultiliza a gem `sidekiq` para deletar automaticamente telefones nao
+verificados por sms depois de 30 minutos que o registro foi criado.
+Para rodar o sidekiq, é necessário ter `Redis` instalado e funcionando,
+preferencialmente na porta `6379`.
+
+`$ gem install sidekiq`
+
+`$ redis-server`
+
+`$ sidekiq`
 
 # Requisitos:
     * Ruby (backend)
