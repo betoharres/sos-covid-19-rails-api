@@ -1,6 +1,7 @@
 class PatientStateController < ApplicationController
+  # before_action :authenticate
+  before_action :set_patient
   before_action :set_paper_trail_whodunnit, except: :history
-  before_action :set_patient, :authenticate
 
   # POST /call/:id
   def call
@@ -30,7 +31,7 @@ class PatientStateController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_patient
-    @patient = Patient.find(params[:id])
+    @patient = Patient.find(params[:patient_id])
   end
 
   def authenticate
@@ -45,6 +46,6 @@ class PatientStateController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def patient_params
-    params.require(:patient_state).permit(:volunteer_id)
+    params.require(:patient_state).permit(:patient_id)
   end
 end
