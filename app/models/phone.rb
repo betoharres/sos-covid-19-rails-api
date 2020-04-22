@@ -7,7 +7,7 @@ class Phone < ApplicationRecord
 
   validates :number, presence: true, uniqueness: true
 
-  after_create :send_sms_code
+  after_create :send_sms_code, :destroy_unverified_phone
 
   private
 
@@ -16,7 +16,7 @@ class Phone < ApplicationRecord
   end
 
   def generate_new_sms_code
-    generated_code = rand(0o000..9999).to_s.rjust(4, '0')
+    generated_code = rand(0..9999).to_s.rjust(4, '0')
     update!(sms_code: generated_code)
     generated_code
   end
@@ -25,5 +25,9 @@ class Phone < ApplicationRecord
     self.is_sms_sent = true
     code = generate_new_sms_code
     TwilioClient.new.send_text(number, "SOS COVID-19 - Seu código: #{code}")
+  end
+
+  def destroy_unverified_phone
+    PhoneCleanupJob.set(wait: 30.minutes).perform_later id
   end
 end

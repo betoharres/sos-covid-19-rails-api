@@ -6,8 +6,6 @@ class Patient < ApplicationRecord
   reverse_geocoded_by :latitude, :longitude
   has_paper_trail
 
-  after_commit :track_unverified_phone_record
-
   scope :with_valid_phones, -> { eager_load(:phone).merge(Phone.validated) }
 
   include AASM
@@ -33,9 +31,5 @@ class Patient < ApplicationRecord
     event :infect do
       transitions from: %i[waiting testing visiting], to: :infected
     end
-  end
-
-  def track_unverified_phone_record
-    PhoneCleanupJob.set(wait: 30.minutes).perform_later phone.id
   end
 end
