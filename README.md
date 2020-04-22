@@ -88,6 +88,13 @@ twilio:
   phone_number: +00000000
 ``````
 
+# Requisitos:
+    * Ruby (backend)
+    * Postgres (backend)
+    * Redis (backend)
+    * Node (frontend)
+    * Yarn (frontend)
+
 # Slack 
 https://soscovid-19.slack.com
 
@@ -99,4 +106,3 @@ https://join.slack.com/t/soscovid-19/shared_invite/zt-dfmc8cz4-3ksiDqD9VElWC~6tl
 
 https://news.sky.com/story/coronavirus-they-call-it-the-apocalypse-inside-italys-hardest-hit-hospital-11960597
 https://www.nytimes.com/2020/03/25/nyregion/nyc-coronavirus-hospitals.html
-

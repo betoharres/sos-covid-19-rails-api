@@ -2,12 +2,11 @@ class VolunteersController < ApplicationController
   # before_action :authenticate
   before_action :set_volunteer, only: %i[show update destroy]
 
-  # GET /volunteers
-  def index
-    @volunteers = Volunteer.all
-
-    render json: @volunteers
-  end
+  # # GET /volunteers
+  # def index
+  #   @volunteers = Volunteer.all
+  #   render json: @volunteers
+  # end
 
   # GET /volunteers/1
   def show

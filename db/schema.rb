@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 2020_04_08_195336) do
 
   create_table "phones", force: :cascade do |t|
     t.string "number", null: false
-    t.string "verification_code"
+    t.string "sms_code"
     t.boolean "is_verified", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -58,6 +58,8 @@ ActiveRecord::Schema.define(version: 2020_04_08_195336) do
   create_table "volunteers", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
+    t.string "job_desire", null: false
+    t.string "job_experience", null: false
     t.string "token"
     t.string "identifier"
     t.string "identifier_type"
