@@ -1,5 +1,5 @@
 class PatientsController < ApplicationController
-  # before_action :authenticate, except: :index, :create
+  before_action :authenticate, except: %i[index create]
   before_action :set_patient, only: %i[show update destroy]
 
   # GET /patients
@@ -8,11 +8,11 @@ class PatientsController < ApplicationController
     range = params[:map_zoom] || 20
     @patients = Patient.with_valid_phones.near(coordinates, range)
 
-    # if @current_user
-    render json: @patients, methods: :phone_number
-    # else
-    # render json: @patients
-    # end
+    if @current_user
+      render json: @patients, methods: :phone_number
+    else
+      render json: @patients, except: :phone_number
+    end
   end
 
   # GET /patients/1
