@@ -58,16 +58,21 @@ ActiveRecord::Schema.define(version: 2020_04_08_195336) do
   create_table "volunteers", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
-    t.string "job_desire", null: false
-    t.string "job_experience", null: false
-    t.string "token"
+    t.string "password_digest", null: false
+    t.string "token", null: false
+    t.string "password_reset_token", null: false
+    t.datetime "password_reset_at", default: "2020-04-23 18:34:00", null: false
+    t.string "job_desire"
+    t.string "job_experience"
     t.string "identifier"
     t.string "identifier_type"
     t.bigint "phone_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_volunteers_on_email", unique: true
+    t.index ["password_reset_token"], name: "index_volunteers_on_password_reset_token", unique: true
     t.index ["phone_id"], name: "index_volunteers_on_phone_id"
+    t.index ["token"], name: "index_volunteers_on_token", unique: true
   end
 
   add_foreign_key "patients", "phones"

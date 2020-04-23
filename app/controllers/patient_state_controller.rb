@@ -1,6 +1,5 @@
 class PatientStateController < ApplicationController
-  # before_action :authenticate
-  before_action :set_patient
+  before_action %i[authenticate set_patient]
   before_action :set_paper_trail_whodunnit, except: :history
 
   # POST /call/:id
