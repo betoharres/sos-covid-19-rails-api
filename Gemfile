@@ -49,7 +49,7 @@ gem 'geocoder'
 gem 'paper_trail'
 gem 'rack-attack'
 gem 'sidekiq'
-gem 'twilio-ruby', '~> 5.33.0'
+gem 'twilio-ruby', '~> 5.33.1'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
