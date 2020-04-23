@@ -6,7 +6,7 @@ class CreateVolunteers < ActiveRecord::Migration[6.0]
       t.string   :password_digest, null: false
       t.string   :token, null: false
       t.string   :password_reset_token, null: false
-      t.datetime :password_reset_at, null: false, default: Time.now.utc
+      t.datetime :password_reset_at, null: false
       t.boolean  :is_email_verified, default: false
       t.string   :job_desire # WIP: onde quer atuar
       t.string   :job_experience # WIP: onde tem experiencia

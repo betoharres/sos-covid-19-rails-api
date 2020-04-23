@@ -61,11 +61,13 @@ ActiveRecord::Schema.define(version: 2020_04_08_195336) do
     t.string "password_digest", null: false
     t.string "token", null: false
     t.string "password_reset_token", null: false
-    t.datetime "password_reset_at", default: "2020-04-23 18:34:00", null: false
+    t.datetime "password_reset_at", null: false
+    t.boolean "is_email_verified", default: false
     t.string "job_desire"
     t.string "job_experience"
     t.string "identifier"
     t.string "identifier_type"
+    t.string "website"
     t.bigint "phone_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
