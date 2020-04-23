@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2020_04_08_195336) do
     t.string "password_digest", null: false
     t.string "token", null: false
     t.string "password_reset_token", null: false
-    t.datetime "password_reset_at", null: false
+    t.datetime "password_reset_at"
     t.boolean "is_email_verified", default: false
     t.string "job_desire"
     t.string "job_experience"
