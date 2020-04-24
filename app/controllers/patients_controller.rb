@@ -56,16 +56,6 @@ class PatientsController < ApplicationController
     @patient = Patient.find(params[:id])
   end
 
-  def authenticate
-    authenticate_or_request_with_http_token do |token|
-      Volunteer.find_by(token: token)
-    end
-  end
-
-  def current_user
-    @current_user ||= authenticate
-  end
-
   # Only allow a trusted parameter "white list" through.
   def patient_params
     params.require(:patient).permit(
