@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   post 'patient_state/history/:patient_id', to: 'patient_state#history'
 
   post '/phones/validate', to: 'phones#validate'
+  post 'session/new'
 end
