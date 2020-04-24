@@ -103,11 +103,17 @@ verificados por sms depois de 30 minutos que o registro foi criado.
 Para rodar o sidekiq, é necessário ter `Redis` instalado e funcionando,
 preferencialmente na porta `6379`.
 
-`$ gem install sidekiq`
+```
+$ gem install sidekiq
+```
 
-`$ redis-server` (caso redis ja nao esteja funcionando)
+```
+$ redis-server` (caso redis ja nao esteja funcionando)
+```
 
-`$ sidekiq`
+```
+$ sidekiq
+```
 
 # [Slack](https://soscovid-19.slack.com) 
 
