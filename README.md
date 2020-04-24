@@ -66,28 +66,36 @@ Qualquer tipo de ajuda é bem-vinda.
 
 1. Encontrar mais pessoas para ajudar na missão do projeto.
 2. Fazer o serviço conhecido para pessoas comuns.
-3. Registar maior número possível médicos voluntários.
+3. Registar maior número possível de voluntários.
 
 ## Iniciando projeto localmente:
 
+### Requisitos:
+    * Ruby (backend)
+    * Postgres (backend)
+    * Redis (backend)
+    * Node (frontend)
+    * Yarn (frontend)
+
 Primeiro rode as migrações:  
-`$ rails db:migrate`  
+`$ rails db:create db:migrate`  
 
 O servico de SMS é feito pelo Twilio, entao você deve criar uma conta e
 adiquirir uma chave para poder usar localmente. 
 Acesse: https://www.twilio.com
 
-Feito isso, insira o access_id e a chave executando:
+Feito isso, insira as credenciais executando:
 `$ rails credentials:edit --environment development`
 
-E então insira os dados, salve e feche:
+E então insira os dados e salve:
 ``````
 twilio:  
   account_sid:  
   auth_token:   
   phone_number: +00000000
 ``````
-Sidekiq/Redis server:
+
+### Sidekiq/Redis server:
 A API ultiliza a gem `sidekiq` para deletar automaticamente telefones nao
 verificados por sms depois de 30 minutos que o registro foi criado.
 Para rodar o sidekiq, é necessário ter `Redis` instalado e funcionando,
@@ -99,19 +107,9 @@ preferencialmente na porta `6379`.
 
 `$ sidekiq`
 
-# Requisitos:
-    * Ruby (backend)
-    * Postgres (backend)
-    * Redis (backend)
-    * Node (frontend)
-    * Yarn (frontend)
+# [Slack](https://soscovid-19.slack.com) 
 
-# Slack 
-https://soscovid-19.slack.com
-
-Convites abertos:
-
-https://join.slack.com/t/soscovid-19/shared_invite/zt-dfmc8cz4-3ksiDqD9VElWC~6tlHzWkA
+## [Convites abertos](https://join.slack.com/t/soscovid-19/shared_invite/zt-dfmc8cz4-3ksiDqD9VElWC~6tlHzWkA)
 
 ## Vídeos para lembrar porque fazemos isso:
 
