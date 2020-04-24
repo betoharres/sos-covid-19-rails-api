@@ -9,11 +9,11 @@ class Phone < ApplicationRecord
 
   after_create :send_sms_code, :destroy_unverified_phone
 
-  private
-
-  def code_valid?(user_sms_code)
-    user_sms_code == sms_code
+  def sms_code_valid?(user_sms_code)
+    update!(is_verified: true) if user_sms_code == sms_code
   end
+
+  private
 
   def generate_new_sms_code
     generated_code = rand(0..9999).to_s.rjust(4, '0')
@@ -22,9 +22,9 @@ class Phone < ApplicationRecord
   end
 
   def send_sms_code
-    self.is_sms_sent = true
     code = generate_new_sms_code
     TwilioClient.new.send_text(number, "SOS COVID-19 - Seu código: #{code}")
+    self.is_sms_sent = true
   end
 
   def destroy_unverified_phone

@@ -1,16 +1,17 @@
 class VolunteersController < ApplicationController
-  # before_action :authenticate
+  before_action :authenticate, except: :create
   before_action :set_volunteer, only: %i[show update destroy]
 
   # # GET /volunteers
   # def index
   #   @volunteers = Volunteer.all
+  #   add `except: :password_digest` before uncomment this
   #   render json: @volunteers
   # end
 
   # GET /volunteers/1
   def show
-    render json: @volunteer
+    render json: @volunteer, except: :password_digest
   end
 
   # POST /volunteers
@@ -21,6 +22,7 @@ class VolunteersController < ApplicationController
     if @volunteer.save
       render json: @volunteer,
              methods: %i[phone_number is_sms_sent phone_is_verified],
+             except: :password_digest,
              status: :created,
              location: @volunteer
     else
@@ -49,20 +51,10 @@ class VolunteersController < ApplicationController
     @volunteer = Volunteer.find(params[:id])
   end
 
-  def authenticate
-    authenticate_or_request_with_http_token do |token|
-      Volunteer.find_by(token: token)
-    end
-  end
-
-  def current_user
-    @current_user ||= authenticate
-  end
-
   # Only allow a trusted parameter "white list" through.
   def volunteer_params
     params.require(:volunteer).permit(
-      :name, :email, :identifier, :identifier_type, :phone
+      :name, :email, :identifier, :identifier_type, :phone, :password
     )
   end
 end

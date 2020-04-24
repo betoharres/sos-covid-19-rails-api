@@ -59,6 +59,7 @@ GEM
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2)
     ast (2.4.0)
+    bcrypt (3.1.13)
     bootsnap (1.4.6)
       msgpack (~> 1.0)
     builder (3.2.4)
@@ -198,8 +199,8 @@ GEM
       sprockets (>= 3.0.0)
     thor (1.0.1)
     thread_safe (0.3.6)
-    twilio-ruby (5.33.0)
-      faraday (~> 1.0.0)
+    twilio-ruby (5.33.1)
+      faraday (>= 0.9, < 2.0)
       jwt (>= 1.5, <= 2.5)
       nokogiri (>= 1.6, < 2.0)
     tzinfo (1.2.7)
@@ -215,6 +216,7 @@ PLATFORMS
 
 DEPENDENCIES
   aasm
+  bcrypt (~> 3.1.7)
   bootsnap (>= 1.4.2)
   byebug
   dotenv-rails
@@ -228,11 +230,12 @@ DEPENDENCIES
   rack-attack
   rack-cors
   rails (~> 6.0.2, >= 6.0.2.2)
+  redis (~> 4.0)
   rubocop-rails
   sidekiq
   spring
   spring-watcher-listen (~> 2.0.0)
-  twilio-ruby (~> 5.33.0)
+  twilio-ruby (~> 5.33.1)
   tzinfo-data
 
 RUBY VERSION

@@ -4,14 +4,10 @@ class PhonesController < ApplicationController
   # POST /phones/validate
   def validate
     @phone = Phone.find_by(number: phone_params[:number])
-    if @phone
-      is_phone_valid = @phone.sms_code == phone_params[:sms_code]
-      if is_phone_valid
-        @phone.update!(is_verified: true)
-        render json: { success: is_phone_valid }
-      else
-        render json: { error: 'Invalid code' }
-      end
+    if @phone&.sms_code_valid?(phone_params[:sms_code])
+      render json: { success: true }
+    elsif @phone
+      render json: { error: 'Invalid code' }
     else
       render json: { error: 'Phone not found' }
     end
