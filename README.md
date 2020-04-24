@@ -58,7 +58,7 @@ Somente médicos/enfermeiros podem mudar o estado do registro.
 ## Quando?
 
 Tempo é o nosso inimigo(junto com o vírus). Precisamos agir agora ou o dano será
-irreversível.  
+irreversível.
 Qualquer tipo de ajuda é bem-vinda.
 
 ## Metas
@@ -75,6 +75,8 @@ Qualquer tipo de ajuda é bem-vinda.
     * Redis (backend)
     * Node (frontend)
     * Yarn (frontend)
+
+* Criar uma conta free no [Mapbox](https://account.mapbox.com/auth/signup/) e no [Twilio](https://www.twilio.com/try-twilio)
 
 ### Backend
  Primeiro rode as migrações:  
@@ -95,7 +97,7 @@ twilio:
   phone_number: +00000000
 ``````
 
-### Sidekiq/Redis server:
+#### Sidekiq/Redis server:
 A API ultiliza a gem `sidekiq` para deletar automaticamente telefones nao
 verificados por sms depois de 30 minutos que o registro foi criado.
 Para rodar o sidekiq, é necessário ter `Redis` instalado e funcionando,
