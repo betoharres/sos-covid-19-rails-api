@@ -9,7 +9,7 @@ class ApplicationController < ActionController::API
       if volunteer&.phone&.is_verified?
         headers['access_token'] = volunteer.token
         headers['token_type'] = 'Bearer'
-        unless volunteer.updated_at > 30.minutes.ago
+        if volunteer.updated_at < 30.seconds.ago
           volunteer.regenerate_token
           headers['refresh_token'] = volunteer.token
           headers['expires_in'] = 30 * 60
