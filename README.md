@@ -77,7 +77,8 @@ Qualquer tipo de ajuda é bem-vinda.
     * Node (frontend)
     * Yarn (frontend)
 
-Primeiro rode as migrações:  
+### Backend
+ Primeiro rode as migrações:  
 `$ rails db:create db:migrate`  
 
 O servico de SMS é feito pelo Twilio, entao você deve criar uma conta e
@@ -103,15 +104,10 @@ preferencialmente na porta `6379`.
 
 `$ gem install sidekiq`
 
-`$ redis-server`
+`$ redis-server` (caso redis ja nao esteja funcionando)
 
 `$ sidekiq`
 
 # [Slack](https://soscovid-19.slack.com) 
 
-## [Convites abertos](https://join.slack.com/t/soscovid-19/shared_invite/zt-dfmc8cz4-3ksiDqD9VElWC~6tlHzWkA)
-
-## Vídeos para lembrar porque fazemos isso:
-
-https://news.sky.com/story/coronavirus-they-call-it-the-apocalypse-inside-italys-hardest-hit-hospital-11960597
-https://www.nytimes.com/2020/03/25/nyregion/nyc-coronavirus-hospitals.html
+## [Slack Convites Abertos](https://join.slack.com/t/soscovid-19/shared_invite/zt-dfmc8cz4-3ksiDqD9VElWC~6tlHzWkA)
