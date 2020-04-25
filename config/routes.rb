@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  require 'sidekiq/web'
+  get 'sidekiq_api', to: 'sidekiq_api#index'
+
   resources :patients
   resources :volunteers, except: :index
   # resources :phones
