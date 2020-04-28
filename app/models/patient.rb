@@ -7,7 +7,7 @@ class Patient < ApplicationRecord
   reverse_geocoded_by :latitude, :longitude
   has_paper_trail
 
-  scope :with_valid_phones, -> { eager_load(:phone).merge(Phone.validated) }
+  scope :with_valid_phone, -> { eager_load(:phone).merge(Phone.validated) }
 
   include AASM
   aasm do
