@@ -3,13 +3,13 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.3'
 
-gem 'dotenv-rails', groups: %i[development test]
-gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
-gem 'pg', '>= 0.18', '< 2.0'
-gem 'puma', '~> 4.1'
-gem 'redis', '~> 4.0'
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'dotenv-rails', groups: %i[development test]
+gem 'pg', '>= 0.18', '< 2.0'
+gem 'puma', '~> 4.1'
+gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
+gem 'redis', '~> 4.0'
 
 gem 'rack-cors'
 
