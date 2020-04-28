@@ -5,25 +5,29 @@ class PatientStateController < ApplicationController
   # POST /call/:id
   def call
     @patient.call!
+    render json: @patient, methods: :auth_token
   end
 
   # POST /visit/:id
   def visit
     @patient.visit!
+    render json: @patient, methods: :auth_token
   end
 
   # POST /discard/:id
   def discard
     @patient.discard!
+    render json: @patient, methods: :auth_token
   end
 
   # POST /infect/:id
   def infect
     @patient.infect!
+    render json: @patient, methods: :auth_token
   end
 
   def history
-    render json: @patient.versions
+    render json: @patient.versions, methods: :auth_token
   end
 
   private
@@ -31,16 +35,7 @@ class PatientStateController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_patient
     @patient = Patient.find(params[:patient_id])
-  end
-
-  def authenticate
-    authenticate_or_request_with_http_token do |token|
-      @volunteer = Volunteer.find_by(token: token)
-    end
-  end
-
-  def current_user
-    @current_user ||= authenticate
+    @patient.auth_token = current_token
   end
 
   # Only allow a trusted parameter "white list" through.

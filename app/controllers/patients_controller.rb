@@ -1,6 +1,6 @@
 class PatientsController < ApplicationController
-  before_action :authenticate, except: %i[index create]
   before_action :set_patient, only: %i[show update destroy]
+  before_action :authenticate, except: %i[index create]
 
   # GET /patients
   def index
@@ -17,7 +17,7 @@ class PatientsController < ApplicationController
 
   # GET /patients/1
   def show
-    render json: @patient
+    render json: @patient, methods: :auth_token
   end
 
   # POST /patients
@@ -38,7 +38,7 @@ class PatientsController < ApplicationController
   # PATCH/PUT /patients/1
   def update
     if @patient.update(patient_params)
-      render json: @patient
+      render json: @patient, methods: :auth_token
     else
       render json: @patient.errors, status: :unprocessable_entity
     end
@@ -47,6 +47,7 @@ class PatientsController < ApplicationController
   # DELETE /patients/1
   def destroy
     @patient.destroy
+    render json: { auth_token: current_token }
   end
 
   private
@@ -54,6 +55,7 @@ class PatientsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_patient
     @patient = Patient.find(params[:id])
+    @patient.auth_token = current_token
   end
 
   # Only allow a trusted parameter "white list" through.

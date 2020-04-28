@@ -1,4 +1,5 @@
 class Volunteer < ApplicationRecord
+  attr_accessor :auth_token
   has_secure_token
   has_secure_token :password_reset_token
   has_secure_password

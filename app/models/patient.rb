@@ -1,4 +1,5 @@
 class Patient < ApplicationRecord
+  attr_accessor :auth_token
   belongs_to :phone, inverse_of: :patients
   delegate :number, to: :phone, prefix: true
   delegate :is_verified, to: :phone, prefix: true

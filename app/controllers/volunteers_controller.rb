@@ -11,7 +11,7 @@ class VolunteersController < ApplicationController
 
   # GET /volunteers/1
   def show
-    render json: @volunteer, except: :password_digest
+    render json: @volunteer, except: :password_digest, methods: :auth_token
   end
 
   # POST /volunteers
@@ -33,7 +33,7 @@ class VolunteersController < ApplicationController
   # PATCH/PUT /volunteers/1
   def update
     if @volunteer.update(volunteer_params)
-      render json: @volunteer
+      render json: @volunteer, except: :password_digest, methods: :auth_token
     else
       render json: @volunteer.errors, status: :unprocessable_entity
     end
@@ -49,6 +49,7 @@ class VolunteersController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_volunteer
     @volunteer = Volunteer.find(params[:id])
+    @volunteer.auth_token = current_token
   end
 
   # Only allow a trusted parameter "white list" through.
