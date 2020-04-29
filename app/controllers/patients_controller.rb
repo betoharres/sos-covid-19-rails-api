@@ -5,8 +5,7 @@ class PatientsController < ApplicationController
   # GET /patients
   def index
     coordinates = [params[:latitude], params[:longitude]]
-    range = params[:map_zoom] || 20
-    @patients = Patient.with_valid_phone.near(coordinates, range)
+    @patients = Patient.with_valid_phone.near(coordinates, 20)
 
     if current_user
       render json: @patients, methods: :phone_number
