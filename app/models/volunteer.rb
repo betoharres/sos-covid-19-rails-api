@@ -9,4 +9,5 @@ class Volunteer < ApplicationRecord
   delegate :number, to: :phone, prefix: true
   delegate :is_verified, to: :phone, prefix: true
   delegate :is_sms_sent, to: :phone
+  scope :with_valid_phone, -> { eager_load(:phone).merge(Phone.validated) }
 end

@@ -5,8 +5,7 @@ class ApplicationController < ActionController::API
 
   def authenticate
     authenticate_or_request_with_http_token do |token|
-      volunteer = Volunteer.find_by(token: token)
-      return volunteer if volunteer&.phone&.is_verified?
+      Volunteer.with_valid_phone.find_by(token: token)
     end
   end
 
