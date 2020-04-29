@@ -15,4 +15,6 @@ Rails.application.routes.draw do
 
   post '/phones/validate', to: 'phones#validate'
   post '/login', to: 'session#new'
+
+  get '/guest', to: 'patients#guest'
 end
