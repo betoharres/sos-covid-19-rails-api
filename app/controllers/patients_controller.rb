@@ -1,18 +1,20 @@
 class PatientsController < ApplicationController
-  before_action :authenticate, except: :create
+  before_action :authenticate, except: %i[guest create]
   before_action :set_patient, only: %i[show update destroy]
 
   # GET /patients
   def index
     coordinates = [params[:latitude], params[:longitude]]
-    range = params[:map_zoom] || 20
-    @patients = Patient.with_valid_phone.near(coordinates, range)
+    @patients = Patient.with_valid_phone.near(coordinates, 20)
 
-    if current_user
-      render json: @patients, methods: :phone_number
-    else
-      render json: @patients, except: :phone_number
-    end
+    render json: @patients, methods: :phone_number
+  end
+
+  def guest
+    coordinates = [params[:latitude], params[:longitude]]
+    @patients = Patient.with_valid_phone.near(coordinates, 20)
+
+    render json: @patients, except: :phone_number
   end
 
   # GET /patients/1
