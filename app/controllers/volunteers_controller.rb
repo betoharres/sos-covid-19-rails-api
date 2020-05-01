@@ -20,8 +20,9 @@ class VolunteersController < ApplicationController
     @volunteer.phone = Phone.find_or_create_by(number: volunteer_params[:phone])
 
     if @volunteer.save
+      @volunteer.auth_token = @volunteer.token
       render json: @volunteer,
-             methods: %i[phone_number is_sms_sent phone_is_verified],
+             methods: %i[phone_number is_sms_sent phone_is_verified auth_token],
              except: :password_digest,
              status: :created,
              location: @volunteer
