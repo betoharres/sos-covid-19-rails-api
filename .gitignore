@@ -24,3 +24,5 @@
 /config/credentials/development.key
 /config/credentials/development.yml.enc
 .env
+
+/config/credentials/production.key
