@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get 'patient_state/history/:patient_id', to: 'patient_state#history'
 
   post '/phones/validate', to: 'phones#validate'
+  post '/phones/resend_sms_code', to: 'phones#resend_sms_code'
   post '/login', to: 'session#new'
 
   get '/guest', to: 'patients#guest'

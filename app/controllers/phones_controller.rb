@@ -13,6 +13,19 @@ class PhonesController < ApplicationController
     end
   end
 
+  # POST /phone/resend_sms_code
+  def resend_sms_code
+    phone = Phone.find_by(number: params[:phone_number])
+
+    return render json: { status: 404 } if phone.nil?
+
+    if phone.resend_sms_code
+      render json: { message: 'Send!' }
+    else
+      render json: { status: 'Too early to try again' }
+    end
+  end
+
   # # GET /phones
   # def index
   #   @phones = Phone.all
