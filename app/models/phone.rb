@@ -13,6 +13,12 @@ class Phone < ApplicationRecord
     update!(is_verified: true) if user_sms_code == sms_code
   end
 
+  def resend_sms_code
+    return if DateTime.now.to_i - updated_at.to_i < 120 # seconds
+
+    send_sms_code
+  end
+
   private
 
   def generate_new_sms_code
