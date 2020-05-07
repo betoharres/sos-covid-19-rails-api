@@ -66,7 +66,7 @@ class PatientsController < ApplicationController
       :phone,        :latitude,          :longitude,         :name,
       :age,          :weight,            :fever,             :tired,
       :headache,     :cough,             :short_breath,      :diarrhea,
-      :hyposmia,     :hypogeusia,        :map_zoom
+      :hyposmia,     :hypogeusia,        :description,       :map_zoom
     )
   end
 end
