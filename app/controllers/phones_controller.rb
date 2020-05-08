@@ -15,14 +15,16 @@ class PhonesController < ApplicationController
 
   # POST /phone/resend_sms_code
   def resend_sms_code
-    phone = Phone.find_by(number: params[:phone_number])
+    @phone = Phone.find_by(number: phone_params[:number])
 
-    return render json: { status: 404 } if phone.nil?
+    if @phone.nil?
+      return render json: { error: 'Phone not found' }, status: :not_found
+    end
 
-    if phone.resend_sms_code
-      render json: { message: 'Send!' }
+    if @phone.resend_sms_code
+      render json: { success: true }
     else
-      render json: { status: 'Too early to try again' }
+      render json: { error: 'Too early' }, status: :not_acceptable
     end
   end
 

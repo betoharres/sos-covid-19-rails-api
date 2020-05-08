@@ -19,18 +19,21 @@ class Phone < ApplicationRecord
     send_sms_code
   end
 
+  def send_sms_code
+    code = generate_new_sms_code
+    TwilioClient.new.send_text(
+      number,
+      "Ajuda Coronavirus - Codigo SMS: #{code}"
+    )
+    self.is_sms_sent = true
+  end
+
   private
 
   def generate_new_sms_code
     generated_code = rand(0..9999).to_s.rjust(4, '0')
     update!(sms_code: generated_code)
     generated_code
-  end
-
-  def send_sms_code
-    code = generate_new_sms_code
-    TwilioClient.new.send_text(number, "SOS COVID-19 - Seu código: #{code}")
-    self.is_sms_sent = true
   end
 
   def destroy_unverified_phone
