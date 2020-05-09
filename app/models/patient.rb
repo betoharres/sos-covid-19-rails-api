@@ -9,8 +9,6 @@ class Patient < ApplicationRecord
 
   scope :with_valid_phone, -> { eager_load(:phone).merge(Phone.validated) }
 
-  after_create :check_phone
-
   include AASM
   aasm do
     state :waiting, initial: true
@@ -34,9 +32,5 @@ class Patient < ApplicationRecord
     event :infect do
       transitions from: %i[waiting testing visiting], to: :infected
     end
-  end
-
-  def check_phone
-    phone.send_sms_code unless phone.is_verified
   end
 end

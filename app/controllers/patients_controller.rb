@@ -25,7 +25,15 @@ class PatientsController < ApplicationController
   # POST /patients
   def create
     @patient = Patient.new(patient_params.except(:phone))
-    @patient.phone = Phone.find_or_create_by(number: patient_params[:phone])
+    @phone = Phone.find_by(number: patient_params[:phone])
+
+    if @phone
+      @phone.send_sms_code unless @phone.is_verified
+    else
+      @phone = Phone.create(number: patient_params[:phone])
+    end
+
+    @patient.phone = @phone
 
     if @patient.save
       render json: @patient,
@@ -66,7 +74,7 @@ class PatientsController < ApplicationController
       :phone,        :latitude,          :longitude,         :name,
       :age,          :weight,            :fever,             :tired,
       :headache,     :cough,             :short_breath,      :diarrhea,
-      :hyposmia,     :hypogeusia,        :description,       :map_zoom
+      :hyposmia,     :hypogeusia,        :description
     )
   end
 end
