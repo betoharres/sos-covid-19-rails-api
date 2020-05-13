@@ -4,6 +4,8 @@ class Volunteer < ApplicationRecord
   has_secure_token :password_reset_token
   has_secure_password
 
+  scope :approved, -> { where(is_approved: true) }
+
   belongs_to :phone, inverse_of: :volunteer
   validates :email, presence: true, uniqueness: true
   delegate :number, to: :phone, prefix: true
