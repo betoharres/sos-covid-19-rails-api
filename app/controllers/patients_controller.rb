@@ -25,16 +25,18 @@ class PatientsController < ApplicationController
   # POST /patients
   def create
     @patient = Patient.new(patient_params.except(:phone))
-    @phone = Phone.find_by(number: patient_params[:phone])
 
+    @phone = Phone.find_by(number: patient_params[:phone])
     if @phone
       @phone.send_sms_code unless @phone.is_verified
     else
-      @phone = Phone.create(number: patient_params[:phone])
+      @phone = Phone.new(number: patient_params[:phone])
+      unless @phone.save
+        return render json: @phone.errors, status: :unprocessable_entity
+      end
     end
 
     @patient.phone = @phone
-
     if @patient.save
       render json: @patient,
              methods: %i[phone_number is_sms_sent phone_is_verified],
