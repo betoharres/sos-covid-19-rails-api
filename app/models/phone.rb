@@ -1,5 +1,6 @@
 class Phone < ApplicationRecord
   attr_accessor :is_sms_sent
+  has_secure_token
   scope :validated, -> { where(is_verified: true) }
 
   has_many :patients, dependent: :delete_all, inverse_of: :phone

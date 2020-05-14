@@ -1,6 +1,7 @@
 class PatientsController < ApplicationController
   before_action :authenticate, except: %i[guest create]
   before_action :set_patient, only: %i[show update destroy]
+  before_action :set_phone, only: :create
 
   # GET /patients
   def index
@@ -24,26 +25,19 @@ class PatientsController < ApplicationController
 
   # POST /patients
   def create
-    @patient = Patient.new(patient_params.except(:phone))
-
-    @phone = Phone.find_by(number: patient_params[:phone])
-    if @phone
-      @phone.send_sms_code unless @phone.is_verified
-    else
-      @phone = Phone.new(number: patient_params[:phone])
-      unless @phone.save
-        return render json: @phone.errors, status: :unprocessable_entity
-      end
-    end
-
+    @patient = Patient.new(patient_params.except(:phone_token))
+    @phone.send_sms_code unless @phone&.is_verified
     @patient.phone = @phone
+
     if @patient.save
       render json: @patient,
              methods: %i[phone_number is_sms_sent phone_is_verified],
              status: :created,
              location: @patient
     else
-      render json: @patient.errors, status: :unprocessable_entity
+      render json: @patient,
+             methods: %i[is_sms_sent errors],
+             status: :unprocessable_entity
     end
   end
 
@@ -70,13 +64,17 @@ class PatientsController < ApplicationController
     @patient.auth_token = current_token
   end
 
+  def set_phone
+    @phone = Phone.find_by(token: patient_params[:phone_token])
+  end
+
   # Only allow a trusted parameter "white list" through.
   def patient_params
     params.require(:patient).permit(
       :phone,        :latitude,          :longitude,         :name,
       :age,          :weight,            :fever,             :tired,
       :headache,     :cough,             :short_breath,      :diarrhea,
-      :hyposmia,     :hypogeusia,        :description
+      :hyposmia,     :hypogeusia,        :description,       :phone_token
     )
   end
 end

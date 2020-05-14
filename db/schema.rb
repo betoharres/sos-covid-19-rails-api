@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_13_000754) do
+ActiveRecord::Schema.define(version: 2020_05_13_022437) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,7 +43,9 @@ ActiveRecord::Schema.define(version: 2020_05_13_000754) do
     t.boolean "is_verified", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "token"
     t.index ["number"], name: "index_phones_on_number", unique: true
+    t.index ["token"], name: "index_phones_on_token", unique: true
   end
 
   create_table "versions", force: :cascade do |t|

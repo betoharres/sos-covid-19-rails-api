@@ -5,7 +5,8 @@ class PhonesController < ApplicationController
   def validate
     @phone = Phone.find_by(number: phone_params[:number])
     if @phone&.sms_code_valid?(phone_params[:sms_code])
-      render json: { success: true }
+      @phone.regenerate_token
+      render json: { success: true, token: @phone.token }
     elsif @phone
       render json: { error: 'Invalid code' }
     else
@@ -39,18 +40,18 @@ class PhonesController < ApplicationController
   # def show
   #   render json: @phone
   # end
-  #
-  # # POST /phones
-  # def create
-  #   @phone = Phone.find_or_create_by(number: phone_params[:number])
-  #
-  #   if @phone.save
-  #     render json: @phone, status: :created, location: @phone
-  #   else
-  #     render json: @phone.errors, status: :unprocessable_entity
-  #   end
-  # end
-  #
+
+  # POST /phones
+  def create
+    @phone = Phone.new(number: phone_params[:number])
+
+    if @phone.save
+      render json: @phone, methods: :is_sms_sent, status: :created
+    else
+      render json: @phone.errors, status: :unprocessable_entity
+    end
+  end
+
   # # PATCH/PUT /phones/1
   # def update
   #   if @phone.update(phone_params)

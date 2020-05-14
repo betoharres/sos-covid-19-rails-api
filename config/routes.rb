@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :patients
   resources :volunteers, except: :index
-  # resources :phones
+  resources :phones, only: :create
 
   post 'patient_state/call/:patient_id', to: 'patient_state#call'
   post 'patient_state/visit/:patient_id', to: 'patient_state#visit'
