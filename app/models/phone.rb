@@ -4,7 +4,7 @@ class Phone < ApplicationRecord
   scope :validated, -> { where(is_verified: true) }
 
   has_many :patients, dependent: :delete_all, inverse_of: :phone
-  has_one :volunteer, dependent: :destroy, inverse_of: :phone
+  has_many :volunteers, dependent: :delete_all, inverse_of: :phones
 
   validates :number, presence: true, uniqueness: true
 

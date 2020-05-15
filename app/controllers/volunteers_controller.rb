@@ -1,6 +1,7 @@
 class VolunteersController < ApplicationController
   before_action :authenticate, except: :create
   before_action :set_volunteer, only: %i[show update destroy]
+  before_action :set_phone, only: :create
 
   # # GET /volunteers
   # def index
@@ -17,13 +18,13 @@ class VolunteersController < ApplicationController
   # POST /volunteers
   def create
     @volunteer = Volunteer.new(volunteer_params.except(:phone))
-    @volunteer.phone = Phone.find_or_create_by(number: volunteer_params[:phone])
+    @volunteer.phone = @phone.errors.any? ? nil : @phone
 
     if @volunteer.save
       @volunteer.auth_token = @volunteer.token
       render json: @volunteer,
-             methods: %i[phone_number is_sms_sent phone_is_verified auth_token],
-             except: :password_digest,
+             methods: %i[phone_number is_sms_sent phone_is_verified],
+             except: %i[password_digest token auth_token],
              status: :created,
              location: @volunteer
     else
@@ -53,10 +54,20 @@ class VolunteersController < ApplicationController
     @volunteer.auth_token = current_token
   end
 
+  def set_phone
+    if volunteer_params[:phone_token]
+      @phone = Phone.find_by(token: volunteer_params[:phone_token])
+      @phone.send_sms_code unless @phone&.is_verified
+    else
+      @phone = Phone.create(number: volunteer_params[:phone])
+    end
+  end
+
   # Only allow a trusted parameter "white list" through.
   def volunteer_params
     params.require(:volunteer).permit(
-      :name, :email, :identifier, :identifier_type, :phone, :website, :password
+      :name,        :email,      :identifier,  :identifier_type, :phone,
+      :website,     :password,   :phone_token, :job_desire,      :job_experience
     )
   end
 end

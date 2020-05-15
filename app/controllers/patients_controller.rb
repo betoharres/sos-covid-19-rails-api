@@ -26,7 +26,7 @@ class PatientsController < ApplicationController
   # POST /patients
   def create
     @patient = Patient.new(patient_params.except(:phone_token))
-    @phone.send_sms_code unless @phone&.is_verified
+    @phone.send_sms_code unless @phone&.is_verified && @patient.valid?
     @patient.phone = @phone
 
     if @patient.save
