@@ -1,6 +1,7 @@
 class SessionController < ApplicationController
   def new
     @volunteer = Volunteer
+                 .approved
                  .find_by(email: params[:email])
                  .try(:authenticate, params[:password])
     if @volunteer
