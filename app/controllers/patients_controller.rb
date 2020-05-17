@@ -77,7 +77,8 @@ class PatientsController < ApplicationController
       :phone,        :latitude,          :longitude,         :name,
       :age,          :weight,            :fever,             :tired,
       :headache,     :cough,             :short_breath,      :diarrhea,
-      :hyposmia,     :hypogeusia,        :description,       :phone_token
+      :hyposmia,     :hypogeusia,        :description,       :phone_token,
+      :sore_throat,  :red_fingers
     )
   end
 end
