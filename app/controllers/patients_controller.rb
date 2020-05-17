@@ -25,8 +25,7 @@ class PatientsController < ApplicationController
 
   # POST /patients
   def create
-    @patient = Patient.new(patient_params.except(:phone_token))
-    @phone.send_sms_code unless @phone&.is_verified && @patient.valid?
+    @patient = Patient.new(patient_params.except(:phone_token, :phone))
     @patient.phone = @phone
 
     if @patient.save
@@ -66,6 +65,10 @@ class PatientsController < ApplicationController
 
   def set_phone
     @phone = Phone.find_by(token: patient_params[:phone_token])
+    return if @phone || @phone.is_verified
+
+    @phone = Phone.find_by(phone: patient_params[:phone])
+    @phone&.send_sms_code
   end
 
   # Only allow a trusted parameter "white list" through.
