@@ -1,5 +1,7 @@
 module Rack
   class Attack
+    Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new
+
     throttle('req/ip', limit: 6, period: 30, &:ip)
 
     throttle('limit patients creation', limit: 6, period: 3600) do |req|

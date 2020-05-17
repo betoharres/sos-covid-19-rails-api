@@ -105,4 +105,6 @@ Rails.application.configure do
   Raven.configure do |config|
     config.dsn = ENV['SENTRY_DSN']
   end
+
+  config.middleware.use Rack::Attack
 end
