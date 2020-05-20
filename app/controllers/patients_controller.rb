@@ -65,7 +65,7 @@ class PatientsController < ApplicationController
 
   def set_phone
     @phone = Phone.find_by(token: patient_params[:phone_token])
-    return if @phone || @phone.is_verified
+    return if @phone || @phone&.is_verified
 
     @phone = Phone.find_by(phone: patient_params[:phone])
     @phone&.send_sms_code
