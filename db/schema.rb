@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_17_164039) do
+ActiveRecord::Schema.define(version: 2020_05_24_194952) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 2020_05_17_164039) do
     t.string "description"
     t.boolean "sore_throat", default: false
     t.boolean "red_fingers", default: false
+    t.integer "sick_days"
     t.index ["phone_id"], name: "index_patients_on_phone_id"
   end
 

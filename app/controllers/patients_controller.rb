@@ -75,7 +75,7 @@ class PatientsController < ApplicationController
   def patient_params
     params.require(:patient).permit(
       :phone,        :latitude,          :longitude,         :name,
-      :age,          :weight,            :fever,             :tired,
+      :age,          :sick_days,         :fever,             :tired,
       :headache,     :cough,             :short_breath,      :diarrhea,
       :hyposmia,     :hypogeusia,        :description,       :phone_token,
       :sore_throat,  :red_fingers
