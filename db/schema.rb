@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2020_05_24_194952) do
   create_table "patients", force: :cascade do |t|
     t.float "latitude", null: false
     t.float "longitude", null: false
-    t.integer "name"
+    t.string "name"
     t.integer "age"
     t.integer "weight"
     t.boolean "fever", default: false

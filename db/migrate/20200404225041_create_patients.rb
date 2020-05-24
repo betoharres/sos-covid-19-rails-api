@@ -3,7 +3,7 @@ class CreatePatients < ActiveRecord::Migration[6.0]
     create_table :patients do |t|
       t.float      :latitude, null: false
       t.float      :longitude, null: false
-      t.integer    :name
+      t.string     :name
       t.integer    :age
       t.integer    :weight
       t.boolean    :fever, default: false
