@@ -15,7 +15,7 @@ class PatientsController < ApplicationController
     coordinates = [params[:latitude], params[:longitude]]
     @patients = Patient.with_valid_phone.near(coordinates, 20)
 
-    render json: @patients, except: :phone_number
+    render json: @patients, except: %i[name phone_number]
   end
 
   # GET /patients/1
