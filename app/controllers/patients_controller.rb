@@ -65,10 +65,10 @@ class PatientsController < ApplicationController
 
   def set_phone
     @phone = Phone.find_by(token: patient_params[:phone_token])
-    return if @phone || @phone&.is_verified
+    return if @phone
 
-    @phone = Phone.find_by(phone: patient_params[:phone])
-    @phone&.send_sms_code
+    @phone = Phone.find_by(number: patient_params[:phone])
+    @phone&.send_sms_code unless @phone&.is_verified
   end
 
   # Only allow a trusted parameter "white list" through.
