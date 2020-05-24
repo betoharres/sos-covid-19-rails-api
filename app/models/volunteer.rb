@@ -1,5 +1,5 @@
 class Volunteer < ApplicationRecord
-  belongs_to :phone, inverse_of: :volunteers
+  belongs_to :phones, inverse_of: :volunteers
   attr_accessor :auth_token
   has_secure_token
   has_secure_token :password_reset_token
